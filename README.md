@@ -1,129 +1,98 @@
 # powerplant-coding-challenge
+# **Production Plan API**
 
+This API calculates an optimal production plan for a set of power plants to meet a specified energy load, based on input parameters like fuel costs, plant efficiency, and power limits. The API processes this data to minimize costs while adhering to operational constraints such as minimum and maximum output limits and plant efficiency.
+
+---
+
+## **Project Overview**
+
+The **Production Plan API** is designed to:
+- Receive energy load requirements and details about power plants (e.g., fuel type, efficiency, operational constraints).
+- Calculate the most cost-effective energy distribution across the plants.
+- Return a production plan as a JSON response, specifying the energy output for each plant.
+
+### **How It Works**
+
+- **Inputs**: A JSON payload including:
+  - **Energy load (`load`)**: The amount of energy (MWh) to be generated.
+  - **Fuel costs (`fuels`)**: Costs for gas, kerosene, CO2 emissions, and wind percentage.
+  - **Power plant parameters (`powerplants`)**: Efficiency, minimum/maximum production limits, and type (gas, turbojet, wind).
+
+- **Output**: A JSON response listing the optimal production levels for each plant, ensuring:
+  - The total energy matches the required load.
+  - Cost-effectiveness, based on fuel costs and efficiency.
+  - Compliance with operational constraints (`pmin` and `pmax`).
+
+- **`api_prueba`**: This file contains the code of the application: Contains the logic for calculating the production plan, including sorting plants by merit order and distributing the load. And sets up the Flask server and exposes the /productionplan API endpoint.
+
+- **requirements.txt**: Lists the required dependencies for the project.
+
+
+## Getting Started
+
+### Prerequisites
+
+Before starting, ensure you have:
+- **Python 3.8** or higher installed on your system.
+- **pip** (Python package manager) installed for managing dependencies.
+
+### Installation
+
+1. **Clone or Download** the project files to your local machine.
+2. **Install dependencies** by navigating to the project directory in your terminal and running:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Running the API
-1. Start the API
-To start the API locally:
 
-Navigate to the directory where app.py is located.
-Run the Flask server:
-```bash
+This section provides step-by-step instructions to run the Production Plan API, send a request, and verify the output.
 
-python app.py
-You should see output like this:
+### 1. Start the API
 
-```bash
+- Open a terminal in the project directory where `api_prueba.py` are located.
+- Run the following command to start the Flask API:
 
-Running on http://127.0.0.1:8888 (Press CTRL+C to quit)
-The API will now be accessible at http://127.0.0.1:8888/productionplan.
+  ```bash
+  python api_prueba.py
+  ```
+  - If the server starts successfully, you should see output in the terminal indicating that the API is running, with a message similar to:
 
-2. Prepare the Input JSON
-Create a JSON file (e.g., payload.json) with the required fields. Example:
+    ```bash
+  Running on http://127.0.0.1:8888 (Press CTRL+C to quit)
+    ```
 
-json
+### 2. Send a Input JSON by POST Request to the API
+- Send by POST a data in JSON including details like the energy load, fuel costs, and power plant specifications.
 
-{
-  "load": 910,
-  "fuels": {
-    "gas(euro/MWh)": 13.4,
-    "kerosine(euro/MWh)": 50.8,
-    "co2(euro/ton)": 20,
-    "wind(%)": 60
-  },
-  "powerplants": [
-    {
-      "name": "gasfiredbig1",
-      "type": "gasfired",
-      "efficiency": 0.53,
-      "pmin": 100,
-      "pmax": 460
-    },
-    {
-      "name": "windpark1",
-      "type": "windturbine",
-      "efficiency": 1,
-      "pmin": 0,
-      "pmax": 150
-    }
-  ]
-}
-3. Test the API
-Use curl or Postman to send a POST request to the /productionplan endpoint:
+- Open another terminal window in the same directory where `payload.json` is located.
 
-```bash
+- Use the following `curl` command to send a `POST` request to the `/productionplan` endpoint:
+    ```bash
+    curl -X POST http://localhost:8888/productionplan
+    ```
 
-curl -X POST http://localhost:8888/productionplan \
--H "Content-Type: application/json" \
--d @payload.json
+### 3. Verify the Output
 
-4. Output
-The API will return a JSON response specifying the production plan. Example:
+- After the request completes successfully, check the project directory. You should see a file named `Merouane_Hadouch_HEADMIND_production_plan_result.json`.
 
-json
-Copiar código
-[
-  {
-    "name": "windpark1",
-    "p": 90.0
-  },
-  {
-    "name": "gasfiredbig1",
-    "p": 460.0
-  }
-]
+- ## Explanation of How the API Works
 
-5. Running Tests
-To run unit tests:
+### API Endpoint 
+- The API has one endpoint, `/productionplan`, which only accepts POST requests with JSON data as input.
 
-```bash
+### Calculation
 
-python -m unittest discover -s test
+- The `calculate_production_plan` function in `production_plan.py` processes this input data to calculate the optimal production levels for each plant. The goal is to distribute the energy output to meet the specified load in the most cost-effective way, taking into account each plant’s efficiency, minimum and maximum output limits, and fuel costs.
 
-Using Docker
-Build the Docker Image
-```bash
+### Output
 
-docker build -t productionplan-api .
-Run the API in a Docker Container
-```bash
+- The API send the information back with specify each plant's production level in MWh
 
+### Confirmation Response
 
-docker run -p 8888:8888 productionplan-api
-You can now access the API at http://127.0.0.1:8888/productionplan.
-
-Explanation of the Algorithm
-Calculation Steps
-Merit Order:
-
-Power plants are sorted by cost efficiency (cheapest first).
-Load Distribution:
-
-The algorithm iteratively assigns energy production to power plants while respecting:
-Minimum and maximum production limits (pmin and pmax).
-Remaining load to be fulfilled.
-Cost Calculation:
-
-For gas and kerosene plants:
-Cost = Fuel Cost+( CO2 Cost × 0.3 )Efficiency
-Cost =  Efficiency Fuel Cost+(CO2 Cost×0.3)
-​
- 
-For wind turbines:
-Cost is zero.
-Output Validation:
-
-Ensures the total production matches the requested load.
-Error Handling
-The API handles and logs the following errors:
-
-Validation Errors: Missing or invalid fields in the payload.
-Calculation Errors: Infeasible solutions where the load cannot be met.
-Unexpected Errors: General exceptions logged for debugging.
-Future Improvements
-Support for renewable energy variability.
-Integration with external fuel pricing APIs.
-Extended error reporting for debugging.
-
-This API provides a robust foundation for managing energy production planning efficiently while minimizing costs.
+- Once the calculation is complete and the file is generated, the API returns a confirmation message in JSON format, indicating that the output file has been successfully created.
 
 
