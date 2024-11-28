@@ -88,11 +88,11 @@ curl -X POST http://localhost:8888/productionplan \
 
 ### Calculation
 
-- The `calculate_production_plan` function in `production_plan.py` processes this input data to calculate the optimal production levels for each plant. The goal is to distribute the energy output to meet the specified load in the most cost-effective way, taking into account each plant’s efficiency, minimum and maximum output limits, and fuel costs.
+- The function in `production_plan.py` processes this input data to calculate the optimal production levels for each plant. The goal is to distribute the energy output to meet the specified load in the most cost-effective way, taking into account each plant’s efficiency, minimum and maximum output limits, and fuel costs.
 
 ### Output
 
-- The API send the information back with specify each plant's production level in MWh
+- The API send the information back with specify each plant's production level in MWh.
 
 
 
