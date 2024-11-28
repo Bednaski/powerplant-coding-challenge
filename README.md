@@ -61,10 +61,9 @@ This section provides step-by-step instructions to run the Production Plan API, 
   
   - If the server starts successfully, you should see output in the terminal indicating that the API is running, with a message similar to:
 
-
-    ```bash
+  ```bash
   Running on http://127.0.0.1:8888 (Press CTRL+C to quit)
-    ```
+  ```
 
 ### 2. Send a Input JSON by POST Request to the API
 - Send by POST a data in JSON including details like the energy load, fuel costs, and power plant specifications.
@@ -72,11 +71,11 @@ This section provides step-by-step instructions to run the Production Plan API, 
 - Open another terminal window in the same directory where `payload.json` is located.
 
 - Use the following `curl` command to send a `POST` request to the `/productionplan` endpoint:
-    ```bash
+```bash
 curl -X POST http://localhost:8888/productionplan \
 -H "Content-Type: application/json" \
 -d 'PUT HERE INFORMATION STRUTURED AS JSON'
-    ```
+```
 
 ### 3. Verify the Output
 
