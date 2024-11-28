@@ -47,7 +47,7 @@ def production_plan():
 
         for plant in powerplants:
             if remaining_load <= 0:
-                production_plan.append({"name": plant["name"], "p": 0})
+                production_plan.append({"name": plant["name"], "p": 00})
                 continue
 
             pmin = plant["pmin"]
