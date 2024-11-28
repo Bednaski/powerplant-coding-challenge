@@ -76,7 +76,7 @@ This section provides step-by-step instructions to run the Production Plan API, 
 
 ### 3. Verify the Output
 
-- After the request completes successfully, check the project directory. You should see a file named `Merouane_Hadouch_HEADMIND_production_plan_result.json`.
+- After the request completes successfully, you should recive back the information of each plan must produce.
 
 - ## Explanation of How the API Works
 
@@ -91,8 +91,5 @@ This section provides step-by-step instructions to run the Production Plan API, 
 
 - The API send the information back with specify each plant's production level in MWh
 
-### Confirmation Response
-
-- Once the calculation is complete and the file is generated, the API returns a confirmation message in JSON format, indicating that the output file has been successfully created.
 
 
