@@ -71,7 +71,9 @@ This section provides step-by-step instructions to run the Production Plan API, 
 
 - Use the following `curl` command to send a `POST` request to the `/productionplan` endpoint:
     ```bash
-    curl -X POST http://localhost:8888/productionplan
+curl -X POST http://localhost:8888/productionplan \
+-H "Content-Type: application/json" \
+-d 'PUT HERE INFORMATION STRUTURED AS JSON'
     ```
 
 ### 3. Verify the Output
