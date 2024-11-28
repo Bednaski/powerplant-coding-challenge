@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8888
 
 # Comando para executar a aplicação
-CMD ["python", "app.py"]
+CMD ["python", "api_prueba.py"]
