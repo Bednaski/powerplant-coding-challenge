@@ -36,7 +36,7 @@ The **Production Plan API** is designed to:
 │   └── production_plan.py        # Algorithm to calculate production plans
 └── test/                         # Folder containing test cases
     └── test_app.py               # Unit tests for the Flask application
-
+```bash
 
 
 You should see output like this:
