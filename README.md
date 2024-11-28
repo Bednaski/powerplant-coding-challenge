@@ -59,7 +59,7 @@ This section provides step-by-step instructions to run the Production Plan API, 
   python api_prueba.py
   ```
   
-  - If the server starts successfully, you should see output in the terminal indicating that the API is running, with a message similar to:
+- If the server starts successfully, you should see output in the terminal indicating that the API is running, with a message similar to:
 
   ```bash
   Running on http://127.0.0.1:8888 (Press CTRL+C to quit)
